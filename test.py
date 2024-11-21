@@ -1,23 +1,23 @@
 import requests
 
 def test_get_usuarios():
-    response = requests.get('http://localhost:3000/usuarios')
+    response = requests.get('http://localhost:8080/usuarios')
     assert response.status_code == 200
 
 def test_post_usuarios(nombre, password):
-    response = requests.post('http://localhost:3000/usuarios', json={'nombre': nombre, 'password': password})
+    response = requests.post('http://localhost:8080/usuarios', json={'nombre': nombre, 'password': password})
     assert response.status_code == 201
 
-def test_get_usuario(name):
-    response = requests.get(f'http://localhost:3000/usuarios/{name}')
+def test_get_usuario(nombre):
+    response = requests.get(f'http://localhost:8080/usuarios/{nombre}')
     assert response.status_code == 200
 
 def test_put_usuario(nombre_actual, nombre_nuevo, contraseña_nuevo):
-    response = requests.put(f'http://localhost:3000/usuarios/{nombre_actual}', json={'nombre': nombre_nuevo, 'password': contraseña_nuevo})
+    response = requests.put(f'http://localhost:8080/usuarios/{nombre_actual}', json={'nombre': nombre_nuevo, 'password': contraseña_nuevo})
     assert response.status_code == 200
 
-def test_delete_usuario(name):
-    response = requests.delete(f'http://localhost:3000/usuarios/{name}')
+def test_delete_usuario(nombre):
+    response = requests.delete(f'http://localhost:8080/usuarios/{nombre}')
     assert response.status_code == 204
 
 test_get_usuarios();

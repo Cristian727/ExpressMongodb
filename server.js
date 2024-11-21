@@ -4,25 +4,29 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
+const path = require('path');
+
+
+app.use(express.static(path.join(__dirname, 'client')));
+
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 // Variables de entorno para la base de datos
-const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_USER = process.env.DB_USER || 'admin';
+const DB_PASSWORD = process.env.DB_PASSWORD || '1234';
 const DB_HOST = process.env.DB_HOST || 'localhost';
 const DB_NAME = process.env.DB_NAME || 'teztz';
 
 // Conexión a MongoDB usando credenciales de dotenv
 mongoose.connect(
-  `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:27017/${DB_NAME}`, 
-  { useNewUrlParser: true, useUnifiedTopology: true }
+  `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:27017/${DB_NAME}`
 )
   .then(() => {
     console.log('Conexión a la base de datos establecida');
   })
   .catch(err => {
-    console.error('Error al conectar a la base de datos', err);
+    console.error('Error al conectar a la base de datos:', err);
     process.exit(1); // Salir si no se puede conectar a la base de datos
   });
 
